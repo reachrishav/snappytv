@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Modern translucent dark glass gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#8C080B11"
+                android:endColor="#D9080B11" />
+        </shape>
+    </item>
+    <!-- Top border highlight line -->
+    <item android:gravity="top">
+        <shape android:shape="rectangle">
+            <size android:height="1dp" />
+            <solid android:color="#26FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

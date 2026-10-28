@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_black"
+    android:keepScreenOn="true">
+
+    <!-- Fullscreen Player -->
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:use_controller="false"
+        app:resize_mode="fit"
+        app:surface_type="surface_view"
+        app:shutter_background_color="@color/bg_black" />
+
+    <!-- Center Buffering Spinner -->
+    <ProgressBar
+        android:id="@+id/bufferingSpinner"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <!-- Centered Pause Indicator Badge -->
+    <LinearLayout
+        android:id="@+id/pauseOverlayBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/hud_bg"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_pause"
+            android:contentDescription="Paused" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="#FFFFFFFF"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-bold"
+            android:text="PAUSED" />
+    </LinearLayout>
+
+    <!-- DTH Bottom Info Bar (Full-width banner: Channel, Category, Clock, Add to Favorites) -->
+    <LinearLayout
+        android:id="@+id/bottomDthBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingStart="48dp"
+        android:paddingEnd="48dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:background="@drawable/dth_bottom_bar_bg"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:elevation="15dp">
+
+        <!-- Left Section: Channel Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/hudChannelNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6EC1FF"
+                    android:textSize="26sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/hudChannelName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="22sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/hudCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#66FFFFFF" />
+
+                <TextView
+                    android:id="@+id/hudResolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6EC1FF"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Auto ABR"
+                    android:singleLine="true" />
+
+                <View
+                    android:id="@+id/hudStreamDot"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#66FFFFFF" />
+
+                <TextView
+                    android:id="@+id/hudStreamInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Right Section: Current Clock & Favorite Action -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Clock & Date -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:layout_marginEnd="24dp">
+
+                <TextView
+                    android:id="@+id/hudClockTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/hudClockDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <!-- Vertical Separator -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:background="#26FFFFFF" />
+
+            <!-- Stream Switcher Minimal Button: Just numbers like 1/6 -->
+            <TextView
+                android:id="@+id/btnHudStreamSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:minWidth="54dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:background="@drawable/dth_category_bg"
+                android:textColor="#FFFFFFFF"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-bold"
+                android:text="1/6"
+                android:focusable="true"
+                android:clickable="true" />
+
+            <!-- Play/Pause Interactive Icon Button -->
+            <FrameLayout
+                android:id="@+id/btnHudPlayPause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/dth_category_bg"
+                android:focusable="true"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/hudPlayPauseIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pause"
+                    android:contentDescription="Pause or Resume" />
+            </FrameLayout>
+
+            <!-- Favorite Interactive Star Icon Button -->
+            <FrameLayout
+                android:id="@+id/btnHudFavorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/dth_category_bg"
+                android:focusable="true"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/hudFavIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_star"
+                    android:contentDescription="Favorite" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Fallback / Error Toast Banner -->
+    <TextView
+        android:id="@+id/statusToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="32dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/hud_bg"
+        android:textColor="#FFFFFFFF"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:visibility="gone" />
+
+    <!-- DTH Channel Guide Drawer (Two-column layout) -->
+    <LinearLayout
+        android:id="@+id/channelSwitcherDrawer"
+        android:layout_width="740dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/dth_guide_bg"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:elevation="20dp">
+
+        <!-- LEFT COLUMN: Categories / Genres / Languages -->
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="CATEGORIES"
+                android:textColor="#80FFFFFF"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.14" />
+
+            <!-- Vertically stacked categories -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categoryRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <!-- Vertical Divider -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#1AFFFFFF" />
+
+        <!-- RIGHT COLUMN: Channels in selected category -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:id="@+id/channelListContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Search Input Container (Shown when '🔍 Search' is selected) -->
+                <LinearLayout
+                    android:id="@+id/searchHeaderContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:background="@drawable/dth_category_bg"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:hint="🔍 Type channel name (e.g. Star, ABP, Sony, Aaj)..."
+                        android:textColorHint="#66FFFFFF"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:focusable="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/categoryHeaderContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/drawerCategoryTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="ALL CHANNELS" />
+
+                    <TextView
+                        android:id="@+id/drawerChannelCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="#6EC1FF"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="[OK] Play  •  [Hold OK] ⭐ Favorite  •  [◀] Categories"
+                    android:textColor="#66FFFFFF"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif" />
+
+                <!-- Vertical Channels List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/channelRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+
+            <!-- Backup & Restore Panel (Shown when "Backup & Restore" category is focused) -->
+            <LinearLayout
+                android:id="@+id/backupPanel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FAVORITES &amp; SETTINGS BACKUP"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/backupStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Save or restore your favorite channels as a JSON backup file in your TV's storage."
+                    android:textColor="#99FFFFFF"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="3dp" />
+
+                <TextView
+                    android:id="@+id/btnSyncPlaylists"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/dth_category_bg"
+                    android:text="🔄  Check &amp; Update Channels Online"
+                    android:textColor="@drawable/pill_text_selector"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+                <TextView
+                    android:id="@+id/btnExportBackup"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/dth_category_bg"
+                    android:text="📥  Export Backup to /sdcard/Download"
+                    android:textColor="@drawable/pill_text_selector"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+                <TextView
+                    android:id="@+id/btnImportBackup"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:background="@drawable/dth_category_bg"
+                    android:text="📤  Import Backup from /sdcard/Download"
+                    android:textColor="@drawable/pill_text_selector"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:focusable="true"
+                    android:clickable="true" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- STREAM SELECTION MODAL POPUP (Triggered by clicking btnHudStreamSwitch) -->
+    <FrameLayout
+        android:id="@+id/streamSelectorOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        android:elevation="25dp">
+
+        <LinearLayout
+            android:id="@+id/streamPopupCard"
+            android:layout_width="480dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/stream_popup_bg"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:clickable="true"
+            android:focusable="false">
+
+            <!-- Popup Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/streamPopupTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:singleLine="true"
+                    android:text="Available Streams" />
+
+                <TextView
+                    android:id="@+id/streamPopupCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6EC1FF"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="6 Streams" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/streamPopupSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#99FFFFFF"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:text="Sorted by rank (highest-ranked stream first)" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="#26FFFFFF" />
+
+            <!-- Streams List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/streamOptionsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Navigation Hints Footer -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#66FFFFFF"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif"
+                android:text="▲ ▼ Navigate • OK Select • BACK Cancel" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

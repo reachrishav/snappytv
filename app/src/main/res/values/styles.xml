@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SnappyTV" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/bg_black</item>
+        <item name="android:colorBackground">@color/bg_black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowOverscan">true</item>
+        <item name="android:textColorPrimary">@color/text_white</item>
+        <item name="android:textColorSecondary">@color/text_dim</item>
+    </style>
+</resources>
+

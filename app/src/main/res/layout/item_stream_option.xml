@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:background="@drawable/channel_item_bg"
+    android:focusable="true"
+    android:clickable="true">
+
+    <!-- Rank Badge (e.g. 1, 2, 3) -->
+    <TextView
+        android:id="@+id/streamRankBadge"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:background="@drawable/stream_rank_badge_bg"
+        android:textColor="#6EC1FF"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-bold"
+        android:text="1" />
+
+    <!-- Stream Details: Rank Label & Source -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="14dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/streamTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-medium"
+            android:singleLine="true"
+            android:text="Stream 1 • Primary" />
+
+        <TextView
+            android:id="@+id/streamSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:text="Source: PiShow" />
+    </LinearLayout>
+
+    <!-- Active Stream Indicator Badge -->
+    <TextView
+        android:id="@+id/streamActiveTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:background="@drawable/active_badge_bg"
+        android:textColor="#FF6EC1FF"
+        android:textSize="11sp"
+        android:fontFamily="sans-serif-bold"
+        android:text="● ACTIVE"
+        android:visibility="gone" />
+</LinearLayout>
+
