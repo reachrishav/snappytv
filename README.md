@@ -68,3 +68,4 @@ adb -s <TV_IP_ADDRESS>:5555 shell monkey -p com.gathin.snappytv -c android.inten
 
 ## License
 MIT License
+
