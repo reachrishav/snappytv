@@ -198,6 +198,36 @@ public class PlaylistManager {
         return cached.exists() && cached.length() > 1024;
     }
 
+    public String getPlaylistSyncInfo() {
+        File cached = new File(context.getFilesDir(), CACHE_FILENAME);
+        android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", java.util.Locale.getDefault());
+
+        if (cached.exists() && cached.length() > 1024) {
+            long ts = prefs.getLong("last_playlist_sync_timestamp", 0);
+            if (ts <= 0) {
+                ts = cached.lastModified();
+            }
+            if (ts > 0) {
+                return "Last Synced: " + sdf.format(new java.util.Date(ts)) + " (VPS Online)";
+            }
+            return "Catalog: Online Synced (VPS)";
+        } else {
+            long installTime = 0;
+            String verName = "1.9";
+            try {
+                android.content.pm.PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                installTime = pi.lastUpdateTime;
+                verName = pi.versionName;
+            } catch (Exception ignored) {}
+
+            if (installTime > 0) {
+                return "Catalog: Built-in (App v" + verName + ", " + sdf.format(new java.util.Date(installTime)) + ")";
+            }
+            return "Catalog: Built-in Assets (App v" + verName + ")";
+        }
+    }
+
     public void updateFromRemoteUrl(String remoteUrl, UpdateCallback callback) {
         executor.execute(() -> {
             HttpURLConnection conn = null;
@@ -243,6 +273,9 @@ public class PlaylistManager {
                 fos.close();
 
                 if (tempFile.renameTo(finalFile) || (finalFile.delete() && tempFile.renameTo(finalFile))) {
+                    android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
+                    prefs.edit().putLong("last_playlist_sync_timestamp", System.currentTimeMillis()).apply();
+
                     List<Channel> reloaded = parseChannelsFromJson(jsonStr);
                     synchronized (allChannels) {
                         allChannels.clear();

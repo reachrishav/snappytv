@@ -743,8 +743,11 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     private void updateBackupStatus() {
         int count = favoritesManager.getFavoritesCount();
         int totalChannels = playlistManager.getAllChannels().size();
-        boolean hasCache = playlistManager.hasLocalCache();
-        backupStatusText.setText("Favorites: " + count + " channels saved.\nTotal Catalog: " + totalChannels + " channels (" + (hasCache ? "Online Synced" : "Built-in Assets") + ").\nBackup: /sdcard/Download/snappytv_backup.json");
+        String syncInfo = playlistManager.getPlaylistSyncInfo();
+        backupStatusText.setText("⭐ Favorites: " + count + " channels saved\n"
+                + "📺 Catalog: " + totalChannels + " channels total\n"
+                + "🕒 " + syncInfo + "\n"
+                + "💾 Local Backup: /sdcard/Download/snappytv_backup.json");
     }
 
     private void performOnlineChannelsUpdate() {
@@ -783,6 +786,11 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
                 @Override
                 public void onSuccess(int count) {
                     Log.i(TAG, "Background OTA sync completed: " + count + " channels.");
+                    handler.post(() -> {
+                        if (PlaylistManager.CAT_BACKUP.equals(currentCategory)) {
+                            updateBackupStatus();
+                        }
+                    });
                 }
 
                 @Override
