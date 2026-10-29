@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -183,16 +184,38 @@ public class FavoritesManager {
     }
 
     private File findBackupFile() {
-        File[] candidateDirs = new File[] {
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                Environment.getExternalStorageDirectory(),
-                context.getExternalFilesDir(null),
-                context.getFilesDir()
-        };
+        List<File> candidateDirs = new ArrayList<>();
+        candidateDirs.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+        candidateDirs.add(new File("/sdcard/Download"));
+        candidateDirs.add(new File("/storage/emulated/0/Download"));
+        candidateDirs.add(Environment.getExternalStorageDirectory());
+        candidateDirs.add(new File("/sdcard"));
+        candidateDirs.add(new File("/storage/emulated/0"));
+        candidateDirs.add(context.getExternalFilesDir(null));
+        candidateDirs.add(context.getFilesDir());
+
+        // Check connected USB / OTG storage volumes
+        try {
+            File storageRoot = new File("/storage");
+            if (storageRoot.exists() && storageRoot.isDirectory()) {
+                File[] volumes = storageRoot.listFiles();
+                if (volumes != null) {
+                    for (File vol : volumes) {
+                        if (vol.isDirectory() && !vol.getName().equalsIgnoreCase("emulated") && !vol.getName().equalsIgnoreCase("self")) {
+                            candidateDirs.add(vol);
+                            candidateDirs.add(new File(vol, "Download"));
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {}
+
         for (File dir : candidateDirs) {
             if (dir == null) continue;
-            File f = new File(dir, BACKUP_FILENAME);
-            if (f.exists() && f.length() > 0) return f;
+            try {
+                File f = new File(dir, BACKUP_FILENAME);
+                if (f.exists() && f.isFile() && f.length() > 0) return f;
+            } catch (Exception ignored) {}
         }
         return null;
     }

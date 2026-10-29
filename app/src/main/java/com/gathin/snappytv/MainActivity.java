@@ -1,10 +1,17 @@
 package com.gathin.snappytv;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -20,7 +27,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.media3.ui.PlayerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -808,7 +818,82 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
         }
     }
 
+    private static final int REQ_STORAGE_PERMISSION = 2001;
+    private String pendingBackupAction = null; // "EXPORT" or "IMPORT"
+
+    private boolean hasStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        } else {
+            return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    private void requestStoragePermission(String action) {
+        this.pendingBackupAction = action;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                showStatusToast("Please toggle 'Allow access to manage all files' for SnappyTV");
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            } catch (Exception e) {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivity(intent);
+                } catch (Exception e2) {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    startActivity(intent);
+                }
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQ_STORAGE_PERMISSION);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pendingBackupAction != null) {
+            if (hasStoragePermission()) {
+                String action = pendingBackupAction;
+                pendingBackupAction = null;
+                if ("EXPORT".equals(action)) {
+                    performExportBackup();
+                } else if ("IMPORT".equals(action)) {
+                    performImportBackup();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQ_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if ("EXPORT".equals(pendingBackupAction)) {
+                    pendingBackupAction = null;
+                    performExportBackup();
+                } else if ("IMPORT".equals(pendingBackupAction)) {
+                    pendingBackupAction = null;
+                    performImportBackup();
+                }
+            } else {
+                pendingBackupAction = null;
+                showStatusToast("❌ Storage permission denied. Cannot access backup file.");
+            }
+        }
+    }
+
     private void performExportBackup() {
+        if (!hasStoragePermission()) {
+            requestStoragePermission("EXPORT");
+            return;
+        }
         try {
             Channel current = playerManager.getCurrentChannel();
             String path = favoritesManager.exportBackup(current != null ? current.getId() : "", currentCategory);
@@ -820,10 +905,14 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     }
 
     private void performImportBackup() {
+        if (!hasStoragePermission()) {
+            requestStoragePermission("IMPORT");
+            return;
+        }
         try {
             int restored = favoritesManager.importBackup(playlistManager.getAllChannels());
             showStatusToast("✅ Restored " + restored + " favorites from backup!");
-            channelAdapter.notifyDataSetChanged();
+            channelAdapter.safeNotifyDataSetChanged();
             updateBackupStatus();
         } catch (Exception e) {
             showStatusToast("❌ Import failed: " + e.getMessage());
