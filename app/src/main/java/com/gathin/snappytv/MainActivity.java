@@ -753,12 +753,16 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     private void performOnlineChannelsUpdate() {
         SharedPreferences prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String customUrl = prefs.getString("custom_playlist_url", PlaylistManager.DEFAULT_REMOTE_URL);
-        showStatusToast("🔄 Checking for updated channels from Oracle VPS…");
+        if (customUrl == null || customUrl.trim().isEmpty()) {
+            showStatusToast("⚠️ No online playlist sync URL configured.");
+            return;
+        }
+        showStatusToast("🔄 Checking for updated channels online…");
         playlistManager.updateFromRemoteUrl(customUrl, new PlaylistManager.UpdateCallback() {
             @Override
             public void onSuccess(int count) {
                 handler.post(() -> {
-                    showStatusToast("✅ Successfully synced " + count + " live channels from VPS!");
+                    showStatusToast("✅ Successfully synced " + count + " live channels!");
                     updateBackupStatus();
                     favoritesManager.applyFavorites(playlistManager.getAllChannels());
                     selectCategory(currentCategory);
@@ -768,7 +772,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
             @Override
             public void onError(String error) {
                 handler.post(() -> {
-                    showStatusToast("❌ VPS sync: " + error);
+                    showStatusToast("❌ Sync failed: " + error);
                 });
             }
         });
@@ -777,6 +781,9 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     private void checkRemotePlaylistUpdateInBackground() {
         SharedPreferences prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String customUrl = prefs.getString("custom_playlist_url", PlaylistManager.DEFAULT_REMOTE_URL);
+        if (customUrl == null || customUrl.trim().isEmpty()) {
+            return; // No sync URL configured
+        }
         long lastCheck = prefs.getLong("last_ota_check_time", 0);
         long now = System.currentTimeMillis();
         // Check at most once every 6 hours in background

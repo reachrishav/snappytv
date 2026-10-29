@@ -209,9 +209,9 @@ public class PlaylistManager {
                 ts = cached.lastModified();
             }
             if (ts > 0) {
-                return "Last Synced: " + sdf.format(new java.util.Date(ts)) + " (VPS Online)";
+                return "Last Synced: " + sdf.format(new java.util.Date(ts)) + " (Online Sync)";
             }
-            return "Catalog: Online Synced (VPS)";
+            return "Catalog: Online Synced";
         } else {
             long installTime = 0;
             String verName = "1.9";
