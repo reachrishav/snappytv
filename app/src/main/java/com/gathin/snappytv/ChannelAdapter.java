@@ -22,10 +22,40 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ViewHold
     private final List<Channel> channels;
     private final OnChannelActionListener listener;
     private String activeChannelId = "";
+    private RecyclerView recyclerView;
 
     public ChannelAdapter(OnChannelActionListener listener) {
         this.channels = new ArrayList<>();
         this.listener = listener;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
+    }
+
+    public void safeNotifyDataSetChanged() {
+        if (recyclerView != null && (recyclerView.isComputingLayout() || recyclerView.isAnimating())) {
+            recyclerView.post(this::notifyDataSetChanged);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void safeNotifyItemChanged(int position) {
+        if (position < 0 || position >= channels.size()) return;
+        if (recyclerView != null && (recyclerView.isComputingLayout() || recyclerView.isAnimating())) {
+            recyclerView.post(() -> notifyItemChanged(position));
+        } else {
+            notifyItemChanged(position);
+        }
     }
 
     public void setChannels(List<Channel> newChannels) {
@@ -33,12 +63,31 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ViewHold
         if (newChannels != null) {
             channels.addAll(newChannels);
         }
-        notifyDataSetChanged();
+        safeNotifyDataSetChanged();
     }
 
     public void setActiveChannelId(String channelId) {
-        this.activeChannelId = channelId != null ? channelId : "";
-        notifyDataSetChanged();
+        String newId = channelId != null ? channelId : "";
+        if (this.activeChannelId.equals(newId)) {
+            return;
+        }
+        String oldId = this.activeChannelId;
+        this.activeChannelId = newId;
+
+        int oldPos = -1;
+        int newPos = -1;
+        for (int i = 0; i < channels.size(); i++) {
+            String id = channels.get(i).getId();
+            if (id.equals(oldId)) oldPos = i;
+            if (id.equals(newId)) newPos = i;
+            if (oldPos != -1 && newPos != -1) break;
+        }
+
+        if (oldPos != -1) safeNotifyItemChanged(oldPos);
+        if (newPos != -1) safeNotifyItemChanged(newPos);
+        if (oldPos == -1 && newPos == -1) {
+            safeNotifyDataSetChanged();
+        }
     }
 
     public Channel getChannelAt(int position) {
@@ -57,9 +106,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ViewHold
     }
 
     public void notifyChannelUpdated(int position) {
-        if (position >= 0 && position < channels.size()) {
-            notifyItemChanged(position);
-        }
+        safeNotifyItemChanged(position);
     }
 
     @NonNull

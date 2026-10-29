@@ -18,6 +18,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamView
     private final Channel channel;
     private int currentStreamIndex;
     private final OnStreamSelectedListener listener;
+    private RecyclerView recyclerView;
 
     public StreamAdapter(Channel channel, int currentStreamIndex, OnStreamSelectedListener listener) {
         this.channel = channel;
@@ -25,9 +26,41 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamView
         this.listener = listener;
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
+    }
+
+    public void safeNotifyDataSetChanged() {
+        if (recyclerView != null && (recyclerView.isComputingLayout() || recyclerView.isAnimating())) {
+            recyclerView.post(this::notifyDataSetChanged);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void safeNotifyItemChanged(int position) {
+        int count = getItemCount();
+        if (position < 0 || position >= count) return;
+        if (recyclerView != null && (recyclerView.isComputingLayout() || recyclerView.isAnimating())) {
+            recyclerView.post(() -> notifyItemChanged(position));
+        } else {
+            notifyItemChanged(position);
+        }
+    }
+
     public void setCurrentStreamIndex(int index) {
+        int prev = currentStreamIndex;
         this.currentStreamIndex = index;
-        notifyDataSetChanged();
+        safeNotifyItemChanged(prev);
+        safeNotifyItemChanged(currentStreamIndex);
     }
 
     @NonNull

@@ -19,17 +19,47 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private final List<String> categories;
     private final OnCategoryListener listener;
     private int selectedPosition = 0;
+    private RecyclerView recyclerView;
 
     public CategoryAdapter(List<String> categories, OnCategoryListener listener) {
         this.categories = categories;
         this.listener = listener;
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
+    }
+
+    public void safeNotifyDataSetChanged() {
+        if (recyclerView != null && (recyclerView.isComputingLayout() || recyclerView.isAnimating())) {
+            recyclerView.post(this::notifyDataSetChanged);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void safeNotifyItemChanged(int position) {
+        if (position < 0 || position >= categories.size()) return;
+        if (recyclerView != null && (recyclerView.isComputingLayout() || recyclerView.isAnimating())) {
+            recyclerView.post(() -> notifyItemChanged(position));
+        } else {
+            notifyItemChanged(position);
+        }
+    }
+
     public void setSelectedPosition(int position) {
         int prev = selectedPosition;
         selectedPosition = position;
-        notifyItemChanged(prev);
-        notifyItemChanged(selectedPosition);
+        safeNotifyItemChanged(prev);
+        safeNotifyItemChanged(selectedPosition);
     }
 
     public int getSelectedPosition() {
@@ -62,10 +92,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 int currentPos = holder.getAdapterPosition();
                 if (currentPos != RecyclerView.NO_POSITION && currentPos != old) {
                     selectedPosition = currentPos;
-                    notifyItemChanged(old);
-                    notifyItemChanged(selectedPosition);
+                    safeNotifyItemChanged(old);
+                    safeNotifyItemChanged(selectedPosition);
                     if (listener != null && currentPos < categories.size()) {
-                        listener.onCategorySelected(categories.get(currentPos), selectedPosition);
+                        String cat = categories.get(currentPos);
+                        v.post(() -> listener.onCategorySelected(cat, currentPos));
                     }
                 }
             }
@@ -76,10 +107,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             int currentPos = holder.getAdapterPosition();
             if (currentPos != RecyclerView.NO_POSITION && currentPos != old) {
                 selectedPosition = currentPos;
-                notifyItemChanged(old);
-                notifyItemChanged(selectedPosition);
+                safeNotifyItemChanged(old);
+                safeNotifyItemChanged(selectedPosition);
                 if (listener != null && currentPos < categories.size()) {
-                    listener.onCategorySelected(categories.get(currentPos), selectedPosition);
+                    String cat = categories.get(currentPos);
+                    v.post(() -> listener.onCategorySelected(cat, currentPos));
                 }
             }
         });
