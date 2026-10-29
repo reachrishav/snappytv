@@ -1,6 +1,8 @@
 package com.gathin.snappytv;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -201,7 +203,7 @@ public class PlaylistManager {
     public String getPlaylistSyncInfo() {
         File cached = new File(context.getFilesDir(), CACHE_FILENAME);
         android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", java.util.Locale.getDefault());
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("d MMM, hh:mm a", java.util.Locale.getDefault());
 
         if (cached.exists() && cached.length() > 1024) {
             long ts = prefs.getLong("last_playlist_sync_timestamp", 0);
@@ -209,23 +211,85 @@ public class PlaylistManager {
                 ts = cached.lastModified();
             }
             if (ts > 0) {
-                return "Last Synced: " + sdf.format(new java.util.Date(ts)) + " (Online Sync)";
+                return sdf.format(new java.util.Date(ts));
             }
-            return "Catalog: Online Synced";
+            return "Online";
         } else {
-            long installTime = 0;
-            String verName = "2.0";
+            String verName = "2.3";
             try {
-                android.content.pm.PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-                installTime = pi.lastUpdateTime;
-                verName = pi.versionName;
+                verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             } catch (Exception ignored) {}
-
-            if (installTime > 0) {
-                return "Catalog: Built-in (App v" + verName + ", " + sdf.format(new java.util.Date(installTime)) + ")";
-            }
-            return "Catalog: Built-in Assets (App v" + verName + ")";
+            return "Built-in (v" + verName + ")";
         }
+    }
+
+    public String getEffectiveSyncUrl() {
+        android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
+        return prefs.getString("custom_playlist_url", DEFAULT_REMOTE_URL);
+    }
+
+    public String getVpsChannelsFreshnessInfo() {
+        android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
+        long vpsTs = prefs.getLong("vps_channels_last_modified", 0);
+        if (vpsTs > 0) {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("d MMM, hh:mm a", java.util.Locale.getDefault());
+            return sdf.format(new java.util.Date(vpsTs)) + " (" + formatTimeAgo(vpsTs) + ")";
+        }
+        return "Checking...";
+    }
+
+    public static String formatTimeAgo(long timeMs) {
+        if (timeMs <= 0) return "";
+        long diffMs = System.currentTimeMillis() - timeMs;
+        if (diffMs < 0) diffMs = 0;
+        long diffMin = diffMs / (60 * 1000);
+        long diffHour = diffMin / 60;
+        long diffDay = diffHour / 24;
+
+        if (diffMin < 1) return "just now";
+        if (diffMin < 60) return diffMin + "m ago";
+        if (diffHour < 24) return diffHour + "h ago";
+        return diffDay + "d ago";
+    }
+
+    public interface FreshnessCallback {
+        void onFreshnessChecked(String freshnessText);
+    }
+
+    public void checkVpsFreshnessAsync(FreshnessCallback callback) {
+        String urlStr = getEffectiveSyncUrl();
+        if (urlStr == null || urlStr.isEmpty()) return;
+
+        executor.execute(() -> {
+            HttpURLConnection conn = null;
+            try {
+                URL url = new URL(urlStr);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("HEAD");
+                conn.setConnectTimeout(6000);
+                conn.setReadTimeout(6000);
+                conn.setRequestProperty("User-Agent", "Mozilla/5.0 (SmartTV; Linux; Android 9)");
+
+                int code = conn.getResponseCode();
+                if (code == 200) {
+                    long lastModified = conn.getLastModified();
+                    if (lastModified <= 0) {
+                        lastModified = conn.getDate();
+                    }
+                    if (lastModified > 0) {
+                        android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
+                        prefs.edit().putLong("vps_channels_last_modified", lastModified).apply();
+                        if (callback != null) {
+                            String info = getVpsChannelsFreshnessInfo();
+                            new Handler(Looper.getMainLooper()).post(() -> callback.onFreshnessChecked(info));
+                        }
+                    }
+                }
+            } catch (Exception ignored) {
+            } finally {
+                if (conn != null) conn.disconnect();
+            }
+        });
     }
 
     public void updateFromRemoteUrl(String remoteUrl, UpdateCallback callback) {
@@ -243,6 +307,11 @@ public class PlaylistManager {
                 if (code != 200) {
                     if (callback != null) callback.onError("Server returned HTTP " + code);
                     return;
+                }
+
+                long remoteLastModified = conn.getLastModified();
+                if (remoteLastModified <= 0) {
+                    remoteLastModified = conn.getDate();
                 }
 
                 is = conn.getInputStream();
@@ -274,7 +343,10 @@ public class PlaylistManager {
 
                 if (tempFile.renameTo(finalFile) || (finalFile.delete() && tempFile.renameTo(finalFile))) {
                     android.content.SharedPreferences prefs = context.getSharedPreferences("snappy_tv_prefs", Context.MODE_PRIVATE);
-                    prefs.edit().putLong("last_playlist_sync_timestamp", System.currentTimeMillis()).apply();
+                    prefs.edit()
+                            .putLong("last_playlist_sync_timestamp", System.currentTimeMillis())
+                            .putLong("vps_channels_last_modified", remoteLastModified)
+                            .apply();
 
                     List<Channel> reloaded = parseChannelsFromJson(jsonStr);
                     synchronized (allChannels) {

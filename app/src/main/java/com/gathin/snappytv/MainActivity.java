@@ -278,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
             channelListContainer.setVisibility(View.GONE);
             backupPanel.setVisibility(View.VISIBLE);
             updateBackupStatus();
+            playlistManager.checkVpsFreshnessAsync(freshnessText -> updateBackupStatus());
             return;
         }
 
@@ -562,6 +563,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
             channelListContainer.setVisibility(View.GONE);
             backupPanel.setVisibility(View.VISIBLE);
             updateBackupStatus();
+            playlistManager.checkVpsFreshnessAsync(freshnessText -> updateBackupStatus());
             categoryRecyclerView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
             channelSwitcherDrawer.setVisibility(View.VISIBLE);
             channelSwitcherDrawer.setTranslationX(-channelSwitcherDrawer.getWidth());
@@ -754,10 +756,13 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
         int count = favoritesManager.getFavoritesCount();
         int totalChannels = playlistManager.getAllChannels().size();
         String syncInfo = playlistManager.getPlaylistSyncInfo();
-        backupStatusText.setText("⭐ Favorites: " + count + " channels saved\n"
-                + "📺 Catalog: " + totalChannels + " channels total\n"
-                + "🕒 " + syncInfo + "\n"
-                + "💾 Local Backup: /sdcard/Download/snappytv_backup.json");
+        String vpsFreshness = playlistManager.getVpsChannelsFreshnessInfo();
+
+        backupStatusText.setText(String.format(Locale.getDefault(),
+                "⭐ %d Favorites  •  📺 %,d Channels\n"
+                + "🌐 VPS Feed: %s  •  Synced: %s\n"
+                + "💾 /sdcard/Download/snappytv_backup.json",
+                count, totalChannels, vpsFreshness, syncInfo));
     }
 
     private void performOnlineChannelsUpdate() {
