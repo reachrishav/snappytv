@@ -214,7 +214,7 @@ public class PlaylistManager {
             return "Catalog: Online Synced";
         } else {
             long installTime = 0;
-            String verName = "1.9";
+            String verName = "2.0";
             try {
                 android.content.pm.PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                 installTime = pi.lastUpdateTime;
