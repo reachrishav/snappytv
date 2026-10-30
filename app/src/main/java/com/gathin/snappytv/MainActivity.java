@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
 
         playlistManager = new PlaylistManager(this);
         favoritesManager = new FavoritesManager(this);
+        playlistManager.setFavoritesManager(favoritesManager);
 
         // Setup Adapters
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -766,8 +767,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     }
 
     private void performOnlineChannelsUpdate() {
-        SharedPreferences prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String customUrl = prefs.getString("custom_playlist_url", PlaylistManager.DEFAULT_REMOTE_URL);
+        String customUrl = playlistManager.getEffectiveSyncUrl();
         if (customUrl == null || customUrl.trim().isEmpty()) {
             showStatusToast("⚠️ No online playlist sync URL configured.");
             return;
@@ -781,6 +781,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
                     updateBackupStatus();
                     favoritesManager.applyFavorites(playlistManager.getAllChannels());
                     selectCategory(currentCategory);
+                    channelAdapter.safeNotifyDataSetChanged();
                 });
             }
 
@@ -794,24 +795,28 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     }
 
     private void checkRemotePlaylistUpdateInBackground() {
-        SharedPreferences prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String customUrl = prefs.getString("custom_playlist_url", PlaylistManager.DEFAULT_REMOTE_URL);
+        String customUrl = playlistManager.getEffectiveSyncUrl();
         if (customUrl == null || customUrl.trim().isEmpty()) {
             return; // No sync URL configured
         }
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         long lastCheck = prefs.getLong("last_ota_check_time", 0);
         long now = System.currentTimeMillis();
         // Check at most once every 6 hours in background
         if (now - lastCheck > 6 * 3600 * 1000L) {
-            prefs.edit().putLong("last_ota_check_time", now).apply();
+            prefs.edit().putLong("last_ota_check_time", now).commit();
             playlistManager.updateFromRemoteUrl(customUrl, new PlaylistManager.UpdateCallback() {
                 @Override
                 public void onSuccess(int count) {
                     Log.i(TAG, "Background OTA sync completed: " + count + " channels.");
                     handler.post(() -> {
+                        favoritesManager.applyFavorites(playlistManager.getAllChannels());
                         if (PlaylistManager.CAT_BACKUP.equals(currentCategory)) {
                             updateBackupStatus();
+                        } else {
+                            selectCategory(currentCategory);
                         }
+                        channelAdapter.safeNotifyDataSetChanged();
                     });
                 }
 

@@ -47,6 +47,7 @@ public class PlaylistManager {
     private final ExecutorService executor;
     private final List<Channel> allChannels;
     private final List<String> categories;
+    private FavoritesManager favoritesManager;
 
     public interface Callback {
         void onLoaded(int channelCount);
@@ -63,6 +64,10 @@ public class PlaylistManager {
         this.allChannels = new ArrayList<>();
         this.categories = new ArrayList<>();
         initCategories();
+    }
+
+    public void setFavoritesManager(FavoritesManager favoritesManager) {
+        this.favoritesManager = favoritesManager;
     }
 
     private void initCategories() {
@@ -90,6 +95,9 @@ public class PlaylistManager {
             synchronized (allChannels) {
                 allChannels.clear();
                 allChannels.addAll(loaded);
+                if (favoritesManager != null) {
+                    favoritesManager.applyFavorites(allChannels);
+                }
             }
             if (callback != null) {
                 callback.onLoaded(allChannels.size());
@@ -215,7 +223,7 @@ public class PlaylistManager {
             }
             return "Online";
         } else {
-            String verName = "2.3";
+            String verName = "2.3.1";
             try {
                 verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             } catch (Exception ignored) {}
@@ -352,6 +360,9 @@ public class PlaylistManager {
                     synchronized (allChannels) {
                         allChannels.clear();
                         allChannels.addAll(reloaded);
+                        if (favoritesManager != null) {
+                            favoritesManager.applyFavorites(allChannels);
+                        }
                     }
                     if (callback != null) callback.onSuccess(allChannels.size());
                 } else {
@@ -381,6 +392,9 @@ public class PlaylistManager {
             synchronized (allChannels) {
                 allChannels.clear();
                 allChannels.addAll(loaded);
+                if (favoritesManager != null) {
+                    favoritesManager.applyFavorites(allChannels);
+                }
             }
             if (callback != null) {
                 callback.onLoaded(allChannels.size());

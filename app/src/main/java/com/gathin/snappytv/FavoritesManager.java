@@ -99,8 +99,8 @@ public class FavoritesManager {
         return favoriteIds.size();
     }
 
-    private void saveFavorites() {
-        prefs.edit().putStringSet(KEY_FAVORITES, new HashSet<>(favoriteIds)).apply();
+    private synchronized void saveFavorites() {
+        prefs.edit().putStringSet(KEY_FAVORITES, new HashSet<>(favoriteIds)).commit();
     }
 
     // --- Export / Import Backup ---
@@ -170,6 +170,9 @@ public class FavoritesManager {
         JSONArray favArray = json.optJSONArray("favorites");
         if (favArray == null) {
             throw new Exception("Invalid backup file: missing favorites array");
+        }
+        if (favArray.length() == 0) {
+            throw new Exception("Backup file contains no favorites");
         }
 
         favoriteIds.clear();
