@@ -40,8 +40,8 @@
       "News"
     ],
     "streams": [
-      "https://d2l4ar6y3mrs4k.cloudfront.net/live-streaming/ananda-livetv/master.m3u8",
-      "https://jmp2.uk/stvp-IN4000006CF"
+      "https://jmp2.uk/stvp-IN4000006CF",
+      "https://d2l4ar6y3mrs4k.cloudfront.net/live-streaming/ananda-livetv/master.m3u8"
     ]
   },
   {
@@ -891,8 +891,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/News18_Bangla_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD25000081V"
+      "https://jmp2.uk/stvp-INBD25000081V",
+      "https://n18syndication.akamaized.net/bpk-tv/News18_Bangla_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -1174,9 +1174,9 @@
       "Music"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBD4700018T7",
       "https://cdn.pishow.tv/ott/live/1143/master.m3u8",
       "https://mumt05.tangotv.in/87NeALx2SANGEETBANGLA/index.m3u8",
-      "https://jmp2.uk/stvp-INBD4700018T7",
       "https://tvsen6.aynaott.com/hT5jHczt/index.m3u8",
       "https://jmp2.uk/stvp-IN400060R0",
       "https://cdn-4.pishow.tv/live/1143/master.m3u8"
@@ -1351,9 +1351,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBD2500007PD",
       "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9banaen8yq/liveabr/playlist.m3u8",
       "https://streams.tangotv.in/TV9BANGLA/ORIGIN/index.m3u8",
-      "https://jmp2.uk/stvp-INBD2500007PD",
       "https://mumbai-edge.smartplaytv.in/Tv9Bangla/index.m3u8"
     ]
   },
@@ -1452,8 +1452,8 @@
       "News"
     ],
     "streams": [
-      "https://d2dsoyvkr33m05.cloudfront.net/index_4.m3u8",
-      "https://jmp2.uk/stvp-INBD400003GE"
+      "https://jmp2.uk/stvp-INBD400003GE",
+      "https://d2dsoyvkr33m05.cloudfront.net/index_4.m3u8"
     ]
   },
   {
@@ -1553,9 +1553,9 @@
       "Music"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC2800013L6",
       "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
       "https://mumt03.tangotv.in/Dsly5z3H9XJALWA/index.m3u8",
-      "https://jmp2.uk/stvp-INBC2800013L6",
       "https://wiselp.wiseplayout.com/9XJalwa/master.m3u8"
     ]
   },
@@ -1677,11 +1677,11 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN3800001ZH",
       "https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8",
       "https://feeds.intoday.in/aajtak/api/master.m3u8",
       "https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_404p/chunks.m3u8",
-      "https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-791258/master.m3u8",
-      "https://jmp2.uk/stvp-IN3800001ZH"
+      "https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-791258/master.m3u8"
     ]
   },
   {
@@ -1695,8 +1695,8 @@
       "News"
     ],
     "streams": [
-      "https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8",
       "https://jmp2.uk/stvp-IN3800004BF",
+      "https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8",
       "https://jmp2.uk/stvp-IN3800001ZH",
       "https://livehub-voidnet.onrender.com/cluster/streamcore/in/AAJTAK_REDIS.m3u8",
       "https://www.youtube.com/watch?v=Nq2wYlWFucg"
@@ -1771,9 +1771,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN4600012BD",
       "https://d2l4ar6y3mrs4k.cloudfront.net/live-streaming/abpnews-livetv/master.m3u8",
       "https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-472500/abpnews/master.m3u8",
-      "https://jmp2.uk/stvp-IN4600012BD",
       "https://cdn.pishow.tv/ott/live/1057/master.m3u8",
       "https://mumt04.tangotv.in/m18aqlK4ABPNEWS/index.m3u8",
       "https://mumbai-edge.smartplaytv.in/ABPNews/index.m3u8"
@@ -2125,9 +2125,9 @@
       "Music"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN3900017KM",
       "https://cdn.pishow.tv/ott/live/415/master.m3u8",
       "https://streams.tangotv.in/B4UMUSIC/ORIGIN/index.m3u8",
-      "https://jmp2.uk/stvp-IN3900017KM",
       "https://mumt04.tangotv.in/m18aqlK4B4UMUSIC/index.m3u8",
       "https://amg00877-b4unew-amg00877c3-xiaomi-in-5474.playouts.now.amagi.tv/720p/index.m3u8",
       "https://amg01408-amg01408c5-amgplt0747.playout.now3.amagi.tv/b4um001/playlist.m3u8",
@@ -2397,8 +2397,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/CNBC_Awaaz_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD1300007ST"
+      "https://jmp2.uk/stvp-INBD1300007ST",
+      "https://n18syndication.akamaized.net/bpk-tv/CNBC_Awaaz_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -3151,8 +3151,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://cc-wsuyg2uxeak04.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-wsuyg2uxeak04/master.m3u8",
-      "https://jmp2.uk/stvp-IN8000171I"
+      "https://jmp2.uk/stvp-IN8000171I",
+      "https://cc-wsuyg2uxeak04.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-wsuyg2uxeak04/master.m3u8"
     ]
   },
   {
@@ -3402,9 +3402,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN17000129W",
       "https://feeds.intoday.in/gnt/api/master.m3u8",
       "https://cc-89m9zu7a2upfe.akamaized.net/hls/live/2016145/gnt/gntlive/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN17000129W",
       "https://www.youtube.com/@GoodNewsTodayOfficial/live",
       "https://aajtaklive.vgcdn.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3196cced-ce29-4219-9809-f07ccdaa02b9/vglive-sk-848805/master.m3u8"
     ]
@@ -3420,8 +3420,8 @@
       "Kids"
     ],
     "streams": [
-      "https://cc-szrmqvu8zkg16.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szrmqvu8zkg16/greengold/stream/grngld/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN4000625P"
+      "https://jmp2.uk/stvp-IN4000625P",
+      "https://cc-szrmqvu8zkg16.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szrmqvu8zkg16/greengold/stream/grngld/playlist.m3u8"
     ]
   },
   {
@@ -3655,9 +3655,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN4000002JA",
       "https://cc-lyf4c0hwzg5dd.akamaized.net/v1/vglive-sk-479089/main.m3u8",
-      "https://cc-lyf4c0hwzg5dd.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-lyf4c0hwzg5dd/v1/vglive-sk-479089/main.m3u8",
-      "https://jmp2.uk/stvp-IN4000002JA"
+      "https://cc-lyf4c0hwzg5dd.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-lyf4c0hwzg5dd/v1/vglive-sk-479089/main.m3u8"
     ]
   },
   {
@@ -4216,9 +4216,9 @@
       "Entertainment"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC2800007ZP",
       "https://d2gvyg6lvauoko.cloudfront.net/230226/ndtvgoodtimes/chunks.m3u8",
-      "https://amg01448-samsungin-ndtvgoodtimes-samsungin-ad-gp.amagi.tv/playlist/amg01448-samsungin-ndtvgoodtimes-samsungin/playlist.m3u8",
-      "https://jmp2.uk/stvp-INBC2800007ZP"
+      "https://amg01448-samsungin-ndtvgoodtimes-samsungin-ad-gp.amagi.tv/playlist/amg01448-samsungin-ndtvgoodtimes-samsungin/playlist.m3u8"
     ]
   },
   {
@@ -4232,9 +4232,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC2800002WJ",
       "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
       "https://cdn.pishow.tv/ott/live/299/master.m3u8",
-      "https://jmp2.uk/stvp-INBC2800002WJ",
       "https://mumbai-edge.smartplaytv.in/NDTVIndia/index.m3u8",
       "https://raw.githubusercontent.com/amazeyourself/adaptive-streams/refs/heads/main/streams/in/YuppTV/NDTVIndia.m3u8"
     ]
@@ -4372,8 +4372,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/News18_India_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD1300010WP"
+      "https://jmp2.uk/stvp-INBD1300010WP",
+      "https://n18syndication.akamaized.net/bpk-tv/News18_India_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -4533,8 +4533,8 @@
       "News"
     ],
     "streams": [
-      "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/6cd2f649739a45ca9de1daf81cc7d0f2/index.m3u8",
       "https://jmp2.uk/stvp-IN46000210J",
+      "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/6cd2f649739a45ca9de1daf81cc7d0f2/index.m3u8",
       "https://streams.tangotv.in/NEWSNATION/ORIGIN/index.m3u8",
       "https://cdn.pishow.tv/ott/live/1493/master.m3u8"
     ]
@@ -4808,9 +4808,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBA490002119",
       "https://cdn.pishow.tv/ott/live/1053/master.m3u8",
       "https://streams.tangotv.in/REPUBLICBHARAT/ORIGIN/index.m3u8",
-      "https://jmp2.uk/stvp-INBA490002119",
       "https://vg-republictvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-275673/main.m3u8",
       "https://raw.githubusercontent.com/amazeyourself/adaptive-streams/refs/heads/main/streams/in/YuppTV/RepublicBharat.m3u8",
       "https://www.youtube.com/@RepublicBharat/live"
@@ -5406,8 +5406,8 @@
       "Movies"
     ],
     "streams": [
-      "https://cc-yw7ztecy8do3q.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-yw7ztecy8do3q/SS_IN.m3u8",
-      "https://jmp2.uk/stvp-IN3800008CX"
+      "https://jmp2.uk/stvp-IN3800008CX",
+      "https://cc-yw7ztecy8do3q.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-yw7ztecy8do3q/SS_IN.m3u8"
     ]
   },
   {
@@ -5712,8 +5712,8 @@
       "Kids"
     ],
     "streams": [
-      "https://cc-4bhi5osabejc9.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-4bhi5osabejc9/junglebook.m3u8",
-      "https://jmp2.uk/stvp-IN25000020M"
+      "https://jmp2.uk/stvp-IN25000020M",
+      "https://cc-4bhi5osabejc9.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-4bhi5osabejc9/junglebook.m3u8"
     ]
   },
   {
@@ -5743,8 +5743,8 @@
       "Movies"
     ],
     "streams": [
-      "https://d3gnyty2vddhsg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ytipwjqub3kf8/TMC2_IN.m3u8?ads.ads_cdn=cf&ads.cdn=cf",
-      "https://jmp2.uk/stvp-IN40000100Y"
+      "https://jmp2.uk/stvp-IN40000100Y",
+      "https://d3gnyty2vddhsg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ytipwjqub3kf8/TMC2_IN.m3u8?ads.ads_cdn=cf&ads.cdn=cf"
     ]
   },
   {
@@ -5918,8 +5918,8 @@
       "News"
     ],
     "streams": [
-      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9hinjzgtpe/liveabr/playlist.m3u8",
       "https://jmp2.uk/stvp-IN3800003SV",
+      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9hinjzgtpe/liveabr/playlist.m3u8",
       "https://streams.tangotv.in/TV9BHARATVARSH/ORIGIN/index.m3u8",
       "https://vg-tv9yupp.vgcdn.net/vglive-sk-468570/v1/019dfce4b3371ea55784752988544/019dfce515ea1ea540a871e333259/main.m3u8",
       "https://www.youtube.com/watch?v=nSpwwcHVp80"
@@ -6162,9 +6162,9 @@
       "Entertainment"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBD400004NS",
       "https://dwby15d04agvq.cloudfront.net/index_5.m3u8",
-      "https://dwby15d04agvq.cloudfront.net/index_1.m3u8",
-      "https://jmp2.uk/stvp-INBD400004NS"
+      "https://dwby15d04agvq.cloudfront.net/index_1.m3u8"
     ]
   },
   {
@@ -6236,8 +6236,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://amg00862-amg00862c5-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c5-amgplt0173/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN2100002GD"
+      "https://jmp2.uk/stvp-IN2100002GD",
+      "https://amg00862-amg00862c5-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c5-amgplt0173/playlist.m3u8"
     ]
   },
   {
@@ -6265,8 +6265,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://amg00862-amg00862c6-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c6-amgplt0173/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN2100003OJ"
+      "https://jmp2.uk/stvp-IN2100003OJ",
+      "https://amg00862-amg00862c6-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c6-amgplt0173/playlist.m3u8"
     ]
   },
   {
@@ -6280,8 +6280,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://amg00862-amg00862c7-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c7-amgplt0173/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN2100004C4"
+      "https://jmp2.uk/stvp-IN2100004C4",
+      "https://amg00862-amg00862c7-amgplt0173.playout.now3.amagi.tv/playlist/amg00862-amg00862c7-amgplt0173/playlist.m3u8"
     ]
   },
   {
@@ -6309,10 +6309,10 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC4300010Z6",
       "https://dknttpxmr0dwf.cloudfront.net/index_57.m3u8",
       "https://vg-zeefta.akamaized.net/ptnr-yupptv/title-zeenews/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/8744f9fb-d696-4204-9795-5215ad930c39/main.m3u8",
       "https://dt3lrqnyx3dks.cloudfront.net/index.m3u8",
-      "https://jmp2.uk/stvp-INBC4300010Z6",
       "https://mumt07.tangotv.in/zHjX9OFlZEENEWS/index.m3u8",
       "https://www.youtube.com/@ZEENews/live"
     ]
@@ -7097,8 +7097,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD25000148M"
+      "https://jmp2.uk/stvp-INBD25000148M",
+      "https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -7143,8 +7143,8 @@
       "Movies"
     ],
     "streams": [
-      "https://d3arbp6l7f096k.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-gv6wgpbb4mgwk/playlist.m3u8?ads.ads_cdn=cf&ads.app_domain=APP_DOMAIN&ads.cdn=cf",
-      "https://jmp2.uk/stvp-IN400061DB"
+      "https://jmp2.uk/stvp-IN400061DB",
+      "https://d3arbp6l7f096k.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-gv6wgpbb4mgwk/playlist.m3u8?ads.ads_cdn=cf&ads.app_domain=APP_DOMAIN&ads.cdn=cf"
     ]
   },
   {
@@ -8223,8 +8223,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://cc-wie8j8y69d2uy.akamaized.net/WWBI/Amagi/ETV_Comedy_IN/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN4900003U3"
+      "https://jmp2.uk/stvp-IN4900003U3",
+      "https://cc-wie8j8y69d2uy.akamaized.net/WWBI/Amagi/ETV_Comedy_IN/playlist.m3u8"
     ]
   },
   {
@@ -8238,8 +8238,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://cc-uyh1ow5zouoio.akamaized.net/WWBI/Amagi/ETV_Josh_IN/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN4900004LP"
+      "https://jmp2.uk/stvp-IN4900004LP",
+      "https://cc-uyh1ow5zouoio.akamaized.net/WWBI/Amagi/ETV_Josh_IN/playlist.m3u8"
     ]
   },
   {
@@ -8282,8 +8282,8 @@
       "News"
     ],
     "streams": [
-      "https://cc-3448kp65yhc5w.akamaized.net/WWBI/Amagi/ETV_News_IN/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN4900001AQ"
+      "https://jmp2.uk/stvp-IN4900001AQ",
+      "https://cc-3448kp65yhc5w.akamaized.net/WWBI/Amagi/ETV_News_IN/playlist.m3u8"
     ]
   },
   {
@@ -8816,8 +8816,8 @@
       "News"
     ],
     "streams": [
-      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9telcmjhcs/liveabr/playlist.m3u8",
       "https://jmp2.uk/stvp-IN40000048N",
+      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9telcmjhcs/liveabr/playlist.m3u8",
       "https://streams.tangotv.in/TV9TELUGU/ORIGIN/index.m3u8"
     ]
   },
@@ -9006,10 +9006,10 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN800012RO",
       "https://cdn.pishow.tv/ott/live/1297/master.m3u8",
       "https://streams.tangotv.in/ASIANETNEWS/ORIGIN/index.m3u8",
       "https://amg13737-amg13737c1-amgplt0016.playout.now3.amagi.tv/playlist/amg13737-amg13737c1-amgplt0016/playlist.m3u8",
-      "https://jmp2.uk/stvp-IN800012RO",
       "https://asianet-samsung.vgcdn.net/ptnr-monitoring/vglive-sk-906908/playlist.m3u8",
       "https://asianetnews.vgcdn.net/vglive-sk-917600/playlist.m3u8",
       "https://www.youtube.com/@asianetnews/live"
@@ -9775,9 +9775,9 @@
       "Music"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC28000144H",
       "https://wiselp.wiseplayout.com/9X_Jhakaas/master.m3u8",
       "https://amg01281-9xmediapvtltd-9xjhakaas-samsungin-ci2cs.amagi.tv/playlist/amg01281-9xmediapvtltd-9xjhakaas-samsungin/playlist.m3u8",
-      "https://jmp2.uk/stvp-INBC28000144H",
       "https://mumt03.tangotv.in/Dsly5z3H9XJHAKAAS/index.m3u8"
     ]
   },
@@ -10010,8 +10010,8 @@
       "News"
     ],
     "streams": [
-      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9marlygv8h/liveabr/playlist.m3u8",
       "https://jmp2.uk/stvp-IN4000003V7",
+      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9marlygv8h/liveabr/playlist.m3u8",
       "https://streams.tangotv.in/TV9MARATHI/ORIGIN/index.m3u8",
       "https://cdn.pishow.tv/ott/live/2/master.m3u8",
       "https://mumbai-edge.smartplaytv.in/TV9Marathi/index.m3u8"
@@ -10028,9 +10028,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBD400001CP",
       "https://dgrvlduwztkd4.cloudfront.net/index_5.m3u8",
-      "https://streams.tangotv.in/ZEE24TAAS/ORIGIN/index.m3u8",
-      "https://jmp2.uk/stvp-INBD400001CP"
+      "https://streams.tangotv.in/ZEE24TAAS/ORIGIN/index.m3u8"
     ]
   },
   {
@@ -10401,9 +10401,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBD2500003XT",
       "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9kanmo6oiq/liveabr/playlist.m3u8",
       "https://streams.tangotv.in/TV9KANNADA/ORIGIN/index.m3u8",
-      "https://jmp2.uk/stvp-INBD2500003XT",
       "https://mumbai-edge.smartplaytv.in/tv9kannada/index.m3u8"
     ]
   },
@@ -10460,13 +10460,13 @@
       "Music"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC2800011JL",
       "https://cdn.pishow.tv/ott/live/1613/master.m3u8",
       "https://streams.tangotv.in/9XTASHAN/ORIGIN/index.m3u8",
       "https://mumt01.tangotv.in/O5aw8Zn39XTASHAN/index.m3u8",
       "https://amg01281-9xmediapvtltd-9xtashan-samsungin-xz1sd.amagi.tv/playlist/amg01281-9xmediapvtltd-9xtashan-samsungin/playlist.m3u8",
       "https://wiselp.wiseplayout.com/9X_Tashan/master.m3u8",
       "https://wiselp.wiseplayout.com/9XTashan/master.m3u8",
-      "https://jmp2.uk/stvp-INBC2800011JL",
       "https://tvsen6.aynaott.com/sMqhLN6n/index.m3u8"
     ]
   },
@@ -10727,9 +10727,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN400050DR",
       "https://vglivessai.akamaized.net/sg/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/921cca59-daee-4f89-8c38-7ffe8de44f4c/index.m3u8",
-      "https://mumt03.tangotv.in/Dsly5z3HGTCNEWS/index.m3u8",
-      "https://jmp2.uk/stvp-IN400050DR"
+      "https://mumt03.tangotv.in/Dsly5z3HGTCNEWS/index.m3u8"
     ]
   },
   {
@@ -10951,10 +10951,10 @@
       "Movies"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-IN1700002C8",
       "https://vg-pitaaratvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-583798/playlist.m3u8",
       "https://streams.tangotv.in/PITAARA/ORIGIN/index.m3u8",
-      "https://mumt04.tangotv.in/m18aqlK4PITAARA/index.m3u8",
-      "https://jmp2.uk/stvp-IN1700002C8"
+      "https://mumt04.tangotv.in/m18aqlK4PITAARA/index.m3u8"
     ]
   },
   {
@@ -11147,8 +11147,8 @@
       "Movies"
     ],
     "streams": [
-      "https://vglivessai.akamaized.net/ptnr-yupptv/title-Punjabi_Shorts/in/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/27c3fd7a-b01f-4b00-ac03-557ac77acd47/index.m3u8",
-      "https://jmp2.uk/stvp-IN400064VZ"
+      "https://jmp2.uk/stvp-IN400064VZ",
+      "https://vglivessai.akamaized.net/ptnr-yupptv/title-Punjabi_Shorts/in/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/27c3fd7a-b01f-4b00-ac03-557ac77acd47/index.m3u8"
     ]
   },
   {
@@ -11320,8 +11320,8 @@
       "News"
     ],
     "streams": [
-      "https://d2l4ar6y3mrs4k.cloudfront.net/live-streaming/asmita-livetv/master.m3u8",
-      "https://jmp2.uk/stvp-INBD400010BD"
+      "https://jmp2.uk/stvp-INBD400010BD",
+      "https://d2l4ar6y3mrs4k.cloudfront.net/live-streaming/asmita-livetv/master.m3u8"
     ]
   },
   {
@@ -11335,8 +11335,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD2500015H5"
+      "https://jmp2.uk/stvp-INBD2500015H5",
+      "https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -11423,8 +11423,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/News18_Gujarati_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD2500009DK"
+      "https://jmp2.uk/stvp-INBD2500009DK",
+      "https://n18syndication.akamaized.net/bpk-tv/News18_Gujarati_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -11494,8 +11494,8 @@
       "News"
     ],
     "streams": [
-      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9guj3ki8lu/liveabr/playlist.m3u8",
       "https://jmp2.uk/stvp-INBD1300012GJ",
+      "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9guj3ki8lu/liveabr/playlist.m3u8",
       "https://streams.tangotv.in/TV9GUJARATI/ORIGIN/index.m3u8"
     ]
   },
@@ -11566,8 +11566,8 @@
       "News"
     ],
     "streams": [
-      "https://vg-zeefta.akamaized.net/ptnr-yupptv/title-zee24kalak/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/497f7199-758d-495d-9d2f-a5489231c428/14b7c8ec-16da-47f2-8d7e-5bbaec67b3e2/3.m3u8",
-      "https://jmp2.uk/stvp-INBD4000027E"
+      "https://jmp2.uk/stvp-INBD4000027E",
+      "https://vg-zeefta.akamaized.net/ptnr-yupptv/title-zee24kalak/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/497f7199-758d-495d-9d2f-a5489231c428/14b7c8ec-16da-47f2-8d7e-5bbaec67b3e2/3.m3u8"
     ]
   },
   {
@@ -12803,8 +12803,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/CNBC_TV18_NW18_MOB/output01/index.m3u8",
-      "https://jmp2.uk/stvp-INBD1300008ZY"
+      "https://jmp2.uk/stvp-INBD1300008ZY",
+      "https://n18syndication.akamaized.net/bpk-tv/CNBC_TV18_NW18_MOB/output01/index.m3u8"
     ]
   },
   {
@@ -12832,8 +12832,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD1300009QZ"
+      "https://jmp2.uk/stvp-INBD1300009QZ",
+      "https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -13197,9 +13197,9 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC2800005X4",
       "https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-293160/master.m3u8",
       "https://indiatodaylive.akamaized.net/hls/live/2014320/indiatoday/indiatodaylive/playlist.m3u8",
-      "https://jmp2.uk/stvp-INBC2800005X4",
       "https://amg00644-amg00644c1-ondemandkorea-amesia-10266.playouts.now.amagi.tv/playlist/amg00644-tvtodaynetworkltdfast-indiatoday-ondemandkoreaamesia/playlist.m3u8",
       "https://livehub-voidnet.onrender.com/cluster/streamcore/in/INDIATODAY_StreamOrchestrator.m3u8",
       "https://www.youtube.com/watch?v=sYZtOFzM78M"
@@ -13441,10 +13441,10 @@
       "Entertainment"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBC2800006GF",
       "https://ndtvprofit.akamaized.net/hls/live/2107404/ndtvprofit/chunklist_5.m3u8",
       "https://ndtvprofit.akamaized.net/hls/live/2107404/ndtvprofit/master_1.m3u8",
-      "https://cdn.pishow.tv/ott/live/1287/master.m3u8",
-      "https://jmp2.uk/stvp-INBC2800006GF"
+      "https://cdn.pishow.tv/ott/live/1287/master.m3u8"
     ]
   },
   {
@@ -13506,8 +13506,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/News18_Odia_NW18_MOB/output01/master.m3u8",
-      "https://jmp2.uk/stvp-INBD2500013ID"
+      "https://jmp2.uk/stvp-INBD2500013ID",
+      "https://n18syndication.akamaized.net/bpk-tv/News18_Odia_NW18_MOB/output01/master.m3u8"
     ]
   },
   {
@@ -13805,11 +13805,11 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBA4900020A5",
       "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2e31d831f08640ff92f65003bdc89991/index.m3u8",
       "https://cdn.pishow.tv/ott/live/271/master.m3u8",
       "https://streams.tangotv.in/REPUBLICTV/ORIGIN/index.m3u8",
       "https://samsung-republictv.amagi.tv/ts-ap-s1-n1/playlist/samsungin-republictv-samsungindia/playlist.m3u8",
-      "https://jmp2.uk/stvp-INBA4900020A5",
       "https://raw.githubusercontent.com/amazeyourself/adaptive-streams/refs/heads/main/streams/in/YuppTV/RepublicTV.m3u8"
     ]
   },
@@ -49701,8 +49701,8 @@
       "Entertainment"
     ],
     "streams": [
-      "https://d12gab6t5iutxf.cloudfront.net/playlist.m3u8",
-      "https://jmp2.uk/stvp-INBA5100028R4"
+      "https://jmp2.uk/stvp-INBA5100028R4",
+      "https://d12gab6t5iutxf.cloudfront.net/playlist.m3u8"
     ]
   },
   {
@@ -50067,6 +50067,7 @@
       "News"
     ],
     "streams": [
+      "https://jmp2.uk/stvp-INBD4000058T",
       "http://vg-zeefta.akamaized.net/ptnr-yupptv/title-wion/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/20c3c0d9-0256-43fe-bca6-70fdd490b957/main.m3u8",
       "https://d7x8z4yuq42qn.cloudfront.net/index_1.m3u8",
       "https://d7x8z4yuq42qn.cloudfront.net/index_5.m3u8",
@@ -50074,7 +50075,6 @@
       "https://d7x8z4yuq42qn.cloudfront.net/index_7.m3u8",
       "https://d7x8z4yuq42qn.cloudfront.net/index_3.m3u8",
       "https://d7x8z4yuq42qn.cloudfront.net/index_2.m3u8",
-      "https://jmp2.uk/stvp-INBD4000058T",
       "https://raw.githubusercontent.com/Alstruit/adaptive-streams/alstruit-10_23_in/streams/in/WION.in.m3u8",
       "https://www.youtube.com/channel/UC_gUM8rL-Lrg6O3adPW9K1g/live",
       "https://www.youtube.com/@WION/live"
@@ -73629,8 +73629,8 @@
       "News"
     ],
     "streams": [
-      "https://web-ndtv-marathi.akamaized.net/hls/live/2110470/ndtvmarathi/master_1.m3u8",
-      "https://jmp2.uk/stvp-IN800013RB"
+      "https://jmp2.uk/stvp-IN800013RB",
+      "https://web-ndtv-marathi.akamaized.net/hls/live/2110470/ndtvmarathi/master_1.m3u8"
     ]
   },
   {
@@ -73644,8 +73644,8 @@
       "News"
     ],
     "streams": [
-      "https://n18syndication.akamaized.net/bpk-tv/News18_Kannada_NW18_MOB/output01/master.m3u8",
       "https://jmp2.uk/stvp-INBD2500012V1",
+      "https://n18syndication.akamaized.net/bpk-tv/News18_Kannada_NW18_MOB/output01/master.m3u8",
       "https://nw18live.cdn.jio.com/bpk-tv/News18_Kannada_NW18_MOB/output01/index.m3u8"
     ]
   },

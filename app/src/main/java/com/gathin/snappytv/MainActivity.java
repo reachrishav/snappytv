@@ -93,7 +93,9 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     private final Runnable hideHudRunnable = this::hideBottomDthBar;
     private final Runnable hideToastRunnable = this::hideStatusToast;
 
-    private String currentCategory = PlaylistManager.CAT_HINDI;
+    private String playbackCategory = PlaylistManager.CAT_FAVORITES;
+    private List<Channel> playbackCategoryChannels;
+    private String currentCategory = PlaylistManager.CAT_FAVORITES;
     private List<Channel> currentCategoryChannels;
     private long lastBackPressTime = 0;
 
@@ -239,6 +241,9 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
             selectCategory(PlaylistManager.CAT_HINDI);
         }
 
+        playbackCategory = currentCategory;
+        playbackCategoryChannels = currentCategoryChannels;
+
         // Auto-play channel
         Channel startChannel = null;
         if (!lastChId.isEmpty() && currentCategoryChannels != null) {
@@ -325,16 +330,19 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
         }
 
         // Re-sort current category so favorites float to top
-        if (!PlaylistManager.CAT_SEARCH.equals(currentCategory)) {
+        if (!PlaylistManager.CAT_SEARCH.equals(currentCategory) && !PlaylistManager.CAT_BACKUP.equals(currentCategory)) {
             currentCategoryChannels = playlistManager.getChannelsForCategory(currentCategory);
             channelAdapter.setChannels(currentCategoryChannels);
             int newPos = channelAdapter.getPositionForChannel(channel);
             if (newPos >= 0) {
                 channelRecyclerView.scrollToPosition(newPos);
             }
-        } else {
+        } else if (PlaylistManager.CAT_SEARCH.equals(currentCategory)) {
             channelAdapter.notifyChannelUpdated(position);
         }
+
+        // Keep active playback category channels updated
+        playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
 
         // Update bottom bar favorite button if active
         Channel active = playerManager.getCurrentChannel();
@@ -355,10 +363,12 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
             showStatusToast("Removed " + current.getName() + " from Favorites");
         }
 
-        if (!PlaylistManager.CAT_SEARCH.equals(currentCategory)) {
+        if (!PlaylistManager.CAT_SEARCH.equals(currentCategory) && !PlaylistManager.CAT_BACKUP.equals(currentCategory)) {
             currentCategoryChannels = playlistManager.getChannelsForCategory(currentCategory);
             channelAdapter.setChannels(currentCategoryChannels);
         }
+
+        playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
     }
 
     private void updateFavoriteButtonState(boolean isFav) {
@@ -397,11 +407,26 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
         channelAdapter.setActiveChannelId(channel.getId());
         if (pauseOverlayBadge != null) pauseOverlayBadge.setVisibility(View.GONE);
         playerManager.playChannel(channel);
+
+        // Commit active playback category if switched from a playable category
+        if (!PlaylistManager.CAT_BACKUP.equals(currentCategory) && !PlaylistManager.CAT_SEARCH.equals(currentCategory)) {
+            playbackCategory = currentCategory;
+            playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
+        } else if (playbackCategoryChannels == null || !playbackCategoryChannels.contains(channel)) {
+            String chCat = channel.getDisplayCategory();
+            if (chCat != null && !chCat.isEmpty() && playlistManager.getCategories().contains(chCat)) {
+                playbackCategory = chCat;
+            } else {
+                playbackCategory = PlaylistManager.CAT_ALL;
+            }
+            playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
+        }
+
         showBottomDthBar(false);
 
         SharedPreferences.Editor editor = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_LAST_CHANNEL_ID, channel.getId());
-        editor.putString(KEY_LAST_CATEGORY, currentCategory);
+        editor.putString(KEY_LAST_CATEGORY, playbackCategory);
         editor.apply();
     }
 
@@ -409,12 +434,12 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
         Channel channel = playerManager.getCurrentChannel();
         if (channel == null) return;
 
-        int pos = (currentCategoryChannels != null) ? currentCategoryChannels.indexOf(channel) : 0;
+        int pos = (playbackCategoryChannels != null) ? playbackCategoryChannels.indexOf(channel) : 0;
         if (pos < 0) pos = 0;
 
         hudChannelNumber.setText(String.format("%02d", pos + 1));
         hudChannelName.setText(channel.getName());
-        hudCategory.setText(channel.getDisplayCategory());
+        hudCategory.setText(playbackCategory != null ? playbackCategory : channel.getDisplayCategory());
         hudResolution.setText("Auto ABR");
 
         // Real-time clock and date
@@ -546,7 +571,10 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     private void showChannelDrawer() {
         hideBottomDthBar();
 
-        // 1. Ensure currentCategory is valid and selected in category adapter
+        // 1. Ensure currentCategory starts from active playbackCategory
+        if (playbackCategory != null && !PlaylistManager.CAT_BACKUP.equals(playbackCategory) && !PlaylistManager.CAT_SEARCH.equals(playbackCategory)) {
+            currentCategory = playbackCategory;
+        }
         List<String> categories = playlistManager.getCategories();
         int catIdx = categories.indexOf(currentCategory);
         if (catIdx < 0) {
@@ -709,47 +737,58 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
     private void hideChannelDrawer() {
         if (channelSwitcherDrawer.getVisibility() == View.VISIBLE) {
             channelSwitcherDrawer.animate().translationX(-channelSwitcherDrawer.getWidth()).setDuration(200)
-                    .withEndAction(() -> channelSwitcherDrawer.setVisibility(View.GONE)).start();
+                    .withEndAction(() -> {
+                        channelSwitcherDrawer.setVisibility(View.GONE);
+                        // Reset drawer browsing state back to the active playback category
+                        currentCategory = playbackCategory;
+                        currentCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
+                        if (categoryAdapter != null) {
+                            int catIdx = playlistManager.getCategories().indexOf(playbackCategory);
+                            if (catIdx >= 0) {
+                                categoryAdapter.setSelectedPosition(catIdx);
+                            }
+                        }
+                    }).start();
             playerView.requestFocus();
         }
     }
 
     private void zapNextChannel() {
-        if (currentCategoryChannels == null || currentCategoryChannels.isEmpty()) {
-            currentCategoryChannels = playlistManager.getChannelsForCategory(currentCategory);
+        if (playbackCategoryChannels == null || playbackCategoryChannels.isEmpty()) {
+            playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
         }
-        if (currentCategoryChannels == null || currentCategoryChannels.isEmpty()) return;
+        if (playbackCategoryChannels == null || playbackCategoryChannels.isEmpty()) return;
         Channel current = playerManager.getCurrentChannel();
         int pos = -1;
         if (current != null) {
-            for (int i = 0; i < currentCategoryChannels.size(); i++) {
-                if (currentCategoryChannels.get(i).getId().equals(current.getId())) {
+            for (int i = 0; i < playbackCategoryChannels.size(); i++) {
+                if (playbackCategoryChannels.get(i).getId().equals(current.getId())) {
                     pos = i;
                     break;
                 }
             }
         }
-        int next = (pos + 1) % currentCategoryChannels.size();
-        switchChannel(currentCategoryChannels.get(next), next);
+        int next = (pos >= 0) ? (pos + 1) % playbackCategoryChannels.size() : 0;
+        switchChannel(playbackCategoryChannels.get(next), next);
     }
 
     private void zapPreviousChannel() {
-        if (currentCategoryChannels == null || currentCategoryChannels.isEmpty()) {
-            currentCategoryChannels = playlistManager.getChannelsForCategory(currentCategory);
+        if (playbackCategoryChannels == null || playbackCategoryChannels.isEmpty()) {
+            playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
         }
-        if (currentCategoryChannels == null || currentCategoryChannels.isEmpty()) return;
+        if (playbackCategoryChannels == null || playbackCategoryChannels.isEmpty()) return;
         Channel current = playerManager.getCurrentChannel();
         int pos = 0;
         if (current != null) {
-            for (int i = 0; i < currentCategoryChannels.size(); i++) {
-                if (currentCategoryChannels.get(i).getId().equals(current.getId())) {
+            for (int i = 0; i < playbackCategoryChannels.size(); i++) {
+                if (playbackCategoryChannels.get(i).getId().equals(current.getId())) {
                     pos = i;
                     break;
                 }
             }
         }
-        int prev = (pos - 1 + currentCategoryChannels.size()) % currentCategoryChannels.size();
-        switchChannel(currentCategoryChannels.get(prev), prev);
+        int prev = (pos - 1 + playbackCategoryChannels.size()) % playbackCategoryChannels.size();
+        switchChannel(playbackCategoryChannels.get(prev), prev);
     }
 
     // --- Backup & Restore Actions ---
@@ -780,7 +819,12 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
                     showStatusToast("✅ Successfully synced " + count + " live channels!");
                     updateBackupStatus();
                     favoritesManager.applyFavorites(playlistManager.getAllChannels());
-                    selectCategory(currentCategory);
+                    playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
+                    if (PlaylistManager.CAT_BACKUP.equals(currentCategory)) {
+                        updateBackupStatus();
+                    } else {
+                        selectCategory(currentCategory);
+                    }
                     channelAdapter.safeNotifyDataSetChanged();
                 });
             }
@@ -811,6 +855,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
                     Log.i(TAG, "Background OTA sync completed: " + count + " channels.");
                     handler.post(() -> {
                         favoritesManager.applyFavorites(playlistManager.getAllChannels());
+                        playbackCategoryChannels = playlistManager.getChannelsForCategory(playbackCategory);
                         if (PlaylistManager.CAT_BACKUP.equals(currentCategory)) {
                             updateBackupStatus();
                         } else {
@@ -906,7 +951,7 @@ public class MainActivity extends AppCompatActivity implements PlayerManager.Lis
         }
         try {
             Channel current = playerManager.getCurrentChannel();
-            String path = favoritesManager.exportBackup(current != null ? current.getId() : "", currentCategory);
+            String path = favoritesManager.exportBackup(current != null ? current.getId() : "", playbackCategory);
             showStatusToast("✅ Backup exported successfully to " + path);
             updateBackupStatus();
         } catch (Exception e) {

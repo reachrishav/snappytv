@@ -223,7 +223,7 @@ public class PlaylistManager {
             }
             return "Online";
         } else {
-            String verName = "2.3.1";
+            String verName = "2.3.3";
             try {
                 verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             } catch (Exception ignored) {}
